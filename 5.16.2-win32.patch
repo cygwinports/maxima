@@ -1,0 +1,21 @@
+--- origsrc/maxima-5.16.2/configure.in	2008-08-22 00:21:32.448399200 -0500
++++ src/maxima-5.16.2/configure.in	2008-08-22 02:42:07.464765300 -0500
+@@ -10,7 +10,8 @@
+                 mingw=true 
+                 ;;
+         *cygwin*)
+-                win32=true
++                win32=false
++                cygwin=true
+                 mingw=false
+                 ;;
+         *)
+@@ -43,7 +44,7 @@
+ 		CLISP_NAME="$withval"
+ 	fi],
+ 	[CLISP_NAME=${clisp_default_name}])
+-if test x"${win32}" = x"true" ; then
++if test x"${win32}" = x"true" -o x"${cygwin}" = x"true" ; then
+    	CLISP_RUNTIME="lisp.exe"
+ else
+ 	CLISP_RUNTIME="lisp.run"
