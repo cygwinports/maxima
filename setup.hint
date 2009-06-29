@@ -1,5 +1,5 @@
 category: Math
-requires: cygwin clisp gnuplot rlwrap tcl tk xdg-utils
+requires: clisp gnuplot rlwrap tcl tk xdg-utils
 sdesc: "Computer Algebra System"
 ldesc: "Maxima is a system for the manipulation of symbolic and 
 numerical expressions, including differentiation, integration, Taylor 
