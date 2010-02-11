@@ -2,12 +2,12 @@ DESCRIPTION="Maxima computer algebra system"
 HOMEPAGE="http://maxima.sourceforge.net/"
 SRC_URI="mirror://sourceforge/${PN}/${P}.tar.gz"
 PATCH_URI="
-	mirror://portage/sci-mathematics/${PN}/files/${PN}-no-init-files.patch
+	mirror://portage/sci-mathematics/${PN}/files/${PN}-5.19.1-no-init-files.patch
 	mirror://portage/sci-mathematics/${PN}/files/${PN}-xdg-utils.patch
 	5.16.2-win32.patch
 "
 
-DIFF_EXCLUDES="doc autoconf-variables.lisp"
+DIFF_EXCLUDES="doc autoconf-variables.lisp stamp-vti version.texi"
 
 MAKEOPTS+=" -j1"
 
