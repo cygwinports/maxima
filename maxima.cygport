@@ -1,0 +1,52 @@
+NAME="maxima"
+VERSION=5.31.2
+RELEASE=1
+CATEGORY="Math"
+SUMMARY="Computer Algebra System"
+DESCRIPTION="Maxima is a system for the manipulation of symbolic and numerical
+expressions, including differentiation, integration, Taylor series, Laplace
+transforms, ordinary differential equations, systems of linear equations,
+polynomials, and sets, lists, vectors, matrices, and tensors. Maxima yields
+high precision numeric results by using exact fractions, arbitrary precision
+integers, and variable precision floating point numbers. Maxima can plot
+functions and data in two and three dimensions."
+HOMEPAGE="http://maxima.sourceforge.net/"
+SRC_URI="mirror://sourceforge/maxima/${NAME}-${VERSION}.tar.gz"
+PATCH_URI="
+	mirror://portage/sci-mathematics/maxima/files/imaxima-0.patch
+	mirror://portage/sci-mathematics/maxima/files/rmaxima-0.patch
+	mirror://portage/sci-mathematics/maxima/files/wish-0.patch
+	mirror://portage/sci-mathematics/maxima/files/xdg-utils-0.patch
+	5.16.2-win32.patch
+"
+
+PKG_NAMES="${NAME} ${NAME}-gui ${NAME}-src"
+maxima_REQUIRES="clisp gnuplot rlwrap"
+maxima_CONTENTS="--exclude=pixmaps --exclude=src --exclude=xmaxima* usr/"
+maxima_gui_REQUIRES="maxima tcl tcl-tk xdg-utils"
+maxima_gui_CONTENTS="usr/bin/xmaxima usr/share/applications/ usr/share/info/xmaxima.* usr/share/maxima/${VERSION}/xmaxima/ usr/share/pixmaps/"
+maxima_src_CONTENTS="usr/share/maxima/${VERSION}/src/"
+
+DIFF_EXCLUDES="doc autoconf-variables.lisp lisp share-subdirs.lisp stamp-vti version.texi"
+
+MAKEOPTS+=" -j1"
+
+src_compile() {
+	cd ${S}
+	cygautoreconf
+	lndirs
+	cd ${B}
+	cygconf \
+		--enable-lang-es --enable-lang-pt --enable-lang-pt_BR \
+		--with-posix-shell=/bin/bash \
+		--with-wish=wish
+	cygmake
+}
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	newicon ${S}/interfaces/xmaxima/maxima-new.png maxima.png
+	make_desktop_entry xmaxima "Maxima" maxima "Education;Math"
+}
